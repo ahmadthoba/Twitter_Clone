@@ -1,13 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:twitter_clone/common/loading_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
+import 'package:twitter_clone/features/auth/view/login_view.dart';
 
 import '../../../common/common.dart';
 import '../../../constants/constants.dart';
 import '../../../theme/theme.dart';
 import '../widgets/auth_field.dart';
-import 'login_view.dart';
 
 class SignUpView extends ConsumerStatefulWidget {
   const SignUpView({super.key});
@@ -44,9 +45,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
       appBar: appBar,
-      body: isLoading
-          ? const Loader()
-          : Center(
+      body: isLoading ? const Loader() : Center(
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -54,8 +53,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                     children: [
                       AuthField(controller: emailController, hintText: 'Email'),
                       const SizedBox(height: 25.0),
-                      AuthField(
-                          controller: passwordController, hintText: 'Password'),
+                      AuthField(controller: passwordController, hintText: 'Password'),
                       const SizedBox(height: 40.0),
                       Align(
                         alignment: Alignment.centerRight,
@@ -78,22 +76,21 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                                 color: Pallete.blueColor,
                                 fontSize: 16,
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
+                              recognizer: TapGestureRecognizer()..onTap = () {
                                   Navigator.push(
                                     context,
                                     LoginView.route(),
-                                  );
-                                },
-                            ),
-                          ],
-                        ),
+                                 );
+                        },
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
+          ),
+        ),
+      ),
     );
   }
 }
